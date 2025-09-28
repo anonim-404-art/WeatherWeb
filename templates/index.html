@@ -4,12 +4,96 @@
     <meta charset="UTF-8">
     <title>WeatherWeb</title>
     <link rel="stylesheet" href="../static/index_style.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 </head>
 <body>
-<section class="main">
+<div class="main">
+    <div class="main_content">
+        <div class="main_content_header">
+            <img class="main_content_header_img" src="https://m.media-amazon.com/images/I/61nuuPxUvaL.png" alt="">
+            <div class="main_content_header_search">
+                <h3 style="color: rgba(255,255,255,0.7)">Search Location ...</h3>
+                <i style="color: white" class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <div class="main_content_info">
+            <div class="main_content_info_container">
+                <h1 style="font-size: 100px; color: white">{{ temp }}C</h1>
+                <div class="main_content_info_container_text">
+                    <h1 style="color: white">London</h1>
+                    <p style="color: white">{{ hour }}:{{ minute }} - {{ weekday }}, {{ day }} {{ month }}
+                        '{{ year }}</p>
+                </div>
+                <i style="color: white; font-size: 80px" class="fa-regular fa-cloud"></i></i>
+            </div>
 
-</section>
+        </div>
+        <div class="main_content_container">
+            <div class="main_content_container_bar">
+                <h2 style="font-family: 'Arial Narrow'">Thunderstorm with light drizzle</h2>
+                <div class="main_content_container_bar_info">
+                    <div class="main_content_container_bar_info_1">
+                        <p>Temp max</p>
+                    </div>
+                    <div class="main_content_container_bar_info_2">
+                        {{ temp_max }}
+                    </div>
+                    <div class="main_content_container_bar_info_3">
+                        <i style="color: red" class="fa-solid fa-temperature-full"></i>
+                    </div>
+                </div>
+                <div class="main_content_container_bar_info">
+                    <div class="main_content_container_bar_info_1">
+                        <p>Temp min</p>
+                    </div>
+                    <div class="main_content_container_bar_info_2">
+                        temp{{ temp_min }}
+                    </div>
+                    <div class="main_content_container_bar_info_3">
+                        <i style="color: blue" class="fa-solid fa-temperature-full"></i>
+                    </div>
+                </div>
+                <div class="main_content_container_bar_info">
+                    <div class="main_content_container_bar_info_1">
+                        <p>Humadity</p>
+                    </div>
+                    <div class="main_content_container_bar_info_2">
+                        {{ humidity }}%
+                    </div>
+                    <div class="main_content_container_bar_info_3">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                </div>
+                <div class="main_content_container_bar_info">
+                    <div class="main_content_container_bar_info_1">
+                        <p>Cloudy</p>
+                    </div>
+                    <div class="main_content_container_bar_info_2">
+                        {{ cloud }}%
+                    </div>
+                    <div class="main_content_container_bar_info_3">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                </div>
+                <div class="main_content_container_bar_info">
+                    <div class="main_content_container_bar_info_1">
+                        <p>Wind</p>
+                    </div>
+                    <div class="main_content_container_bar_info_2">
+                        {{ wind_speed }}km/h
+                    </div>
+                    <div class="main_content_container_bar_info_3">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

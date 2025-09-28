@@ -1,5 +1,103 @@
-body {
-  background-color: red;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://iso.500px.com/wp-content/uploads/2024/11/ALASKA-ALONG-DALTON-HIGHWAY-70714-By-Raimondo-Restelli-2-3000x1688.jpeg");
+  background-size: cover;
+}
+.main_content {
+  position: relative;
+  width: 80%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main_content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  height: 60px;
+}
+.main_content_header_img {
+  width: 60px;
+}
+.main_content_header_search {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  border-bottom: 1px white solid;
+}
+.main_content_info {
+  height: auto;
+}
+.main_content_info_container {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  justify-content: space-between;
+}
+.main_content_info_container_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  height: 100%;
+}
+.main_content_container {
+  width: 400px;
+  height: 100%;
+  overflow: auto;
+  position: absolute;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 0;
+  right: 0;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+.main_content_container_bar {
+  width: 80%;
+  height: 250px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main_content_container_bar_info {
+  display: flex;
+  justify-content: space-between;
+  height: 20px;
+}
+.main_content_container_bar_info_1 {
+  width: 30%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.main_content_container_bar_info_2 {
+  width: 50%;
+  align-items: center;
+  display: flex;
+  justify-content: end;
+}
+.main_content_container_bar_info_3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
 }
 
 /*# sourceMappingURL=index_style.css.map */
