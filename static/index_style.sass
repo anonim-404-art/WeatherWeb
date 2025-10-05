@@ -1,6 +1,14 @@
 *
   margin: 0
   padding: 0
+  box-sizing: border-box // Good practice for modern layouts
+
+$primary-color: #ffffff
+$secondary-color: rgba($primary-color, 0.7)
+$glass-bg: rgba(255, 255, 255, 0.1)
+$detail-bg: rgba(0, 0, 0, 0.15)
+$border-color: rgba(255, 255, 255, 0.18)
+$blur-amount: 15px
 
 .main
   width: 100vw
@@ -10,6 +18,8 @@
   align-items: center
   background-image: url("https://iso.500px.com/wp-content/uploads/2024/11/ALASKA-ALONG-DALTON-HIGHWAY-70714-By-Raimondo-Restelli-2-3000x1688.jpeg")
   background-size: cover
+  background-position: center
+  font-family: Arial, sans-serif
   &_content
     position: relative
     width: 80%
@@ -17,71 +27,137 @@
     display: flex
     flex-direction: column
     justify-content: space-between
+    // Apply a subtle background/border to the main content area for definition
+    background: rgba(255, 255, 255, 0.05)
+    border-radius: 20px
+    padding: 30px
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+
     &_header
       display: flex
       justify-content: space-between
       align-items: center
-      width: 50%
+      width: 60% // Increased width for better header alignment
       height: 60px
       &_img
         width: 60px
       &_search
-        width: 300px
+        width: 350px // Slightly wider search box
         display: flex
         align-items: center
         justify-content: space-between
         height: 50px
-        border-bottom: 1px white solid
+        border-bottom: 2px $secondary-color solid // Thicker, transparent line
+
     &_info
-      height: auto
+      flex-grow: 1 // Takes up remaining space for central placement
+      display: flex
+      align-items: center
+      // Align items to the top to prevent detail panel overlap on the main info
+      align-self: flex-start
+      padding-top: 50px
       &_container
         display: flex
         align-items: center
-        width: 600px
+        width: 700px // Wider container to separate elements
         justify-content: space-between
+
+        // Target h1 (ID 6) for styling, but keep inline style for font-size
+        h1[id="6"]
+          font-weight: 300 // Lighter font weight for modern look
+          margin-right: 30px
+
         &_text
           display: flex
           flex-direction: column
-          justify-content: space-between
-          width: 200px
-          height: 100%
+          justify-content: center // Center location text vertically
+          width: 300px
+          height: auto
+
+          // Target h1 (ID 7) for location name
+          h1[id="7"]
+            font-size: 2.5em
+            font-weight: 500
+            margin-bottom: 5px
+
+          p
+            color: $secondary-color
+
+        // Target icon
+        > i
+          font-size: 100px !important // Override inline style if necessary, or keep original 80px
+          align-self: flex-start // Align the icon to the top
+
     &_container
-      width: 400px
+      // This is the detail sidebar, keep it positioned absolutely
+      width: 350px
       height: 100%
-      overflow: auto
+      overflow: hidden // Hide scrollbar, ensure content fits
       position: absolute
-      justify-content: space-around
+      // Use flex to manage the vertical space
       display: flex
       flex-direction: column
       align-items: center
       top: 0
       right: 0
-      border-radius: 20px
-      backdrop-filter: blur(10px)
+      border-radius: 0 20px 20px 0 // Round only the right corners
+      background-color: $detail-bg // Darker background for contrast
+      backdrop-filter: blur($blur-amount)
+      -webkit-backdrop-filter: blur($blur-amount)
+      border-left: 1px solid $border-color // Separation line from main card
+
       &_bar
-        width: 80%
-        height: 250px
-        color: white
+        width: 85% // Wider bar for better padding
+        height: 100%
+        color: $primary-color
         display: flex
         flex-direction: column
-        justify-content: space-between
+        justify-content: space-around // Distribute info evenly
+        padding: 40px 0 30px 0 // Add vertical padding
+
+        h2
+          font-family: Arial, sans-serif !important
+          font-weight: 600
+          text-align: center
+          margin-bottom: 20px
+          padding-bottom: 15px
+          border-bottom: 1px $secondary-color solid
+
         &_info
           display: flex
           justify-content: space-between
-          height: 20px
+          align-items: center // Ensure vertical alignment
+          height: 30px // Give more space to each info item
+          padding: 5px 0
+
           &_1
-            width: 30%
+            width: 35%
             display: flex
             justify-content: start
             align-items: center
+            p
+              font-weight: 400
+              color: $secondary-color
+
           &_2
-            width: 50%
+            width: 45%
             align-items: center
             display: flex
-            justify-content: end
+            justify-content: flex-end
+            font-size: 1.1em
+            font-weight: 600
+
           &_3
             display: flex
             align-items: center
-
             justify-content: center
             width: 20%
+            font-size: 1.2em
+
+            // Color adjustments for clarity
+            .fa-temperature-full[style*="red"]
+              color: #ff4747 !important // Brighter red
+            .fa-temperature-full[style*="blue"]
+              color: #47aeff !important // Brighter blue
+            .fa-droplet, .fa-cloud, .fa-wind
+              color: $primary-color
