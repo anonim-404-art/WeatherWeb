@@ -20,7 +20,6 @@ def weather(api_key, lat, long):
 def index():
     current_lat = lat
     current_lon = lon
-
     if request.method == "POST":
         location = request.get_json()
         if location and 'lat' in location and 'long' in location:
