@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Web</title>
+    <script src="main.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .weather-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      }
+
+      .glow {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+
+      .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-5xl">
+      <!-- Header with Search -->
+      <div class="weather-card rounded-3xl p-6 mb-6">
+        <div class="flex flex-col md:flex-row gap-4 items-center">
+          <div class="flex-1 w-full">
+            <div class="relative">
+              <input
+                type="text"
+                id="cityInput"
+                placeholder="Search for a city..."
+                class="w-full bg-white/20 text-white placeholder-white/60 rounded-2xl px-6 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-white/40 text-lg"
+              />
+              <svg
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/60"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+          </div>
+          <button
+            id="searchBtn"
+            class="bg-white/30 hover:bg-white/40 text-white rounded-2xl px-8 py-4 transition-all duration-300 font-medium glow hover-lift text-lg"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 weather-card rounded-3xl p-8">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <h1 id="cityName" class="text-white text-3xl font-bold">
+                  ---, ---
+                </h1>
+              </div>
+              <p id="currentDate" class="text-white/80 text-sm ml-8">
+                ----, -- ----- ----
+              </p>
+            </div>
+            <div class="text-right">
+              <p id="currentTime" class="text-white text-2xl font-semibold">
+                --:--
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <div class="flex items-baseline gap-2">
+                <h2 id="temperature" class="text-white text-8xl font-bold">
+                  --
+                </h2>
+                <span class="text-white/80 text-3xl">C</span>
+              </div>
+              <p
+                id="weatherDescription"
+                class="text-white/90 text-2xl mt-2 capitalize"
+              >
+                --
+              </p>
+            </div>
+            <div class="pulse">
+              <img
+                id="weatherIcon"
+                class="w-40 h-40"
+                src="image/weather.svg"
+                alt="Weather Logo"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white/10 rounded-2xl p-4 hover-lift">
+              <div class="flex items-center gap-2 mb-2">
+                <svg
+                  class="w-5 h-5 text-white/70"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z"
+                  />
+                </svg>
+                <p class="text-white/70 text-xs">Feels Like</p>
+              </div>
+              <p id="feelsLike" class="text-white text-2xl font-semibold">
+                --°
+              </p>
+            </div>
+
+            <div class="bg-white/10 rounded-2xl p-4 hover-lift">
+              <div class="flex items-center gap-2 mb-2">
+                <svg
+                  class="w-5 h-5 text-white/70"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.5 3A2.5 2.5 0 003 5.5v2.879a2.5 2.5 0 00.732 1.767l6.5 6.5a2.5 2.5 0 003.536 0l2.878-2.878a2.5 2.5 0 000-3.536l-6.5-6.5A2.5 2.5 0 008.38 3H5.5zM6 7a1 1 0 100-2 1 1 0 000 2z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <p class="text-white/70 text-xs">Humidity</p>
+              </div>
+              <p id="humidity" class="text-white text-2xl font-semibold">--%</p>
+            </div>
+
+            <div class="bg-white/10 rounded-2xl p-4 hover-lift">
+              <div class="flex items-center gap-2 mb-2">
+                <svg
+                  class="w-5 h-5 text-white/70"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <p class="text-white/70 text-xs">Wind</p>
+              </div>
+              <p id="windSpeed" class="text-white text-2xl font-semibold">
+                -- km/h
+              </p>
+            </div>
+
+            <div class="bg-white/10 rounded-2xl p-4 hover-lift">
+              <div class="flex items-center gap-2 mb-2">
+                <svg
+                  class="w-5 h-5 text-white/70"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                  />
+                </svg>
+                <p class="text-white/70 text-xs">Pressure</p>
+              </div>
+              <p id="pressure" class="text-white text-2xl font-semibold">
+                ----
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="weather-card rounded-3xl p-6 hover-lift">
+            <h3 class="text-white/80 text-sm font-medium mb-4">Sun Times</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="bg-orange-400/20 p-2 rounded-xl">
+                    <svg
+                      class="w-6 h-6 text-orange-300"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-white/60 text-xs">Sunrise</p>
+                    <p id="sunrise" class="text-white font-semibold">-:- AM</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="bg-indigo-400/20 p-2 rounded-xl">
+                    <svg
+                      class="w-6 h-6 text-indigo-300"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-white/60 text-xs">Sunset</p>
+                    <p id="sunset" class="text-white font-semibold">-:- PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="weather-card rounded-3xl p-6 hover-lift">
+            <h3 class="text-white/80 text-sm font-medium mb-4">Air Quality</h3>
+            <div class="flex items-center justify-between mb-3">
+              <p id="aqiValue" class="text-white text-4xl font-bold">42</p>
+              <span
+                id="aqiLabel"
+                class="bg-green-400/30 text-green-100 px-3 py-1 rounded-full text-sm font-medium"
+                >Good</span
+              >
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-2">
+              <div
+                id="aqiBar"
+                class="bg-green-400 h-2 rounded-full"
+                style="width: 42%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="weather-card rounded-3xl p-6 hover-lift">
+            <h3 class="text-white/80 text-sm font-medium mb-4">UV Index</h3>
+            <div class="flex items-center justify-between">
+              <p id="uvValue" class="text-white text-4xl font-bold">5</p>
+              <span
+                id="uvLabel"
+                class="bg-yellow-400/30 text-yellow-100 px-3 py-1 rounded-full text-sm font-medium"
+                >Moderate</span
+              >
+            </div>
+            <p class="text-white/60 text-xs mt-3">Wear sunscreen if outside</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
